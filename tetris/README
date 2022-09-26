@@ -1,0 +1,34 @@
+
+Overview:
+
+This is a recreation of the classic game Tetris! In order to play, move the falling Piece left, right, and down respectively with the
+left arrow key / A key, the right arrow key / D key , and the down arrow key / S key respectively.
+Pressing the up key / W will rotate the piece clockwise by 90 degrees. Pressing p will pause the game (to unpause, press p again).
+Press the space bar to move the piece all the way down as far as it can.
+Once it cannot move further down the piece will lock in place and a new piece will emerge from the top that you can control.
+If any of the 20 rows are filled with the blocks of the pieces, the row clears, removing itself and moving all other pieces down.
+Once there is no space remaining to put another piece in the board, the game is over.
+
+Enjoy!
+
+Design Choices:
+
+To make the Tetris board, I decided to use a 2DArray of Blocks (a wrapper class for Rectangles), with the outermost blocks being the outer bounds
+of the Tetris board (in a blue color) and the inner blocks a gray color. Pieces were a set of different, unique colors that are visually easily recognizable
+as different to the board.
+
+To control only one piece at a time, I made a singluar piece the "active Piece". Once that piece fell down and another piece was made, that piece was now the active piece.
+The pieces move down using a Timeline that, for every 1/2 of a second, moves the active piece down and checks if either there are any rows to remove or if the game is over.
+The way I determined when to remove a row was if there wasn't a single block in the row that was colored gray.
+
+In order to make sure that moving the piece wouldn't cause the piece to go out of bounds, the piece is only allowed to do such an action if all of the blocks would still be
+within the inner part of the board. If not, the piece doesn't move.
+
+To determine whether or not the game was over, I had it check the first inner row to see if there were any non-active Piece blocks there. If so, then the timeline was stopped
+and the player is informed that the game is over.
+
+Known bugs:
+
+The Tetris pieces, when rotates in a way to go past the outer board, can crash the game.
+
+
